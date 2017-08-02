@@ -37,4 +37,12 @@ public class MockServer {
     public static void confMock(final HttpRequest httpRequest, final HttpResponse httpResponse) {
         mock.when(httpRequest).respond(httpResponse);
     }
+
+    public static HttpRequest getRecordedRequest(final HttpRequest request) {
+        HttpRequest[] httpRequests = mock.retrieveRecordedRequests(request);
+        if (httpRequests.length > 1) {
+            throw new RuntimeException("Should be one request");
+        }
+        return httpRequests[0];
+    }
 }
