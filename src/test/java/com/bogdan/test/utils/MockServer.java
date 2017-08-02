@@ -1,10 +1,11 @@
 package com.bogdan.test.utils;
 
-import org.mockserver.integration.ClientAndServer;
+import com.bogdan.test.configuration.Configuration;
+import org.mockserver.client.server.MockServerClient;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
 
-import static com.bogdan.test.configuration.Configuration.PORT;
+import static com.bogdan.test.configuration.Configuration.getConfiguration;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 
 public class MockServer {
@@ -12,23 +13,28 @@ public class MockServer {
     private MockServer() {
     }
 
-    private static ClientAndServer mockServer;
+    private static MockServerClient mock;
 
     public static void start() {
-        if (mockServer == null) {
-            mockServer = startClientAndServer(PORT);
+        final Configuration configuration = getConfiguration();
+        if (configuration.isStandaloneMock()) {
+            mock = new MockServerClient(configuration.getMockHost(), configuration.getStandaloneMockPort());
+        } else {
+            mock = startClientAndServer(configuration.getMockPort());
         }
     }
 
     public static void stop() {
-        mockServer.stop();
+        if (!getConfiguration().isStandaloneMock()) {
+            mock.stop();
+        }
     }
 
     public static void reset() {
-        mockServer.reset();
+        mock.reset();
     }
 
     public static void confMock(final HttpRequest httpRequest, final HttpResponse httpResponse) {
-        mockServer.when(httpRequest).respond(httpResponse);
+        mock.when(httpRequest).respond(httpResponse);
     }
 }

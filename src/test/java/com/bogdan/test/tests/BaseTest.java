@@ -6,18 +6,14 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
-import static com.bogdan.test.configuration.Configuration.BASE_URL;
+import static com.bogdan.test.configuration.Configuration.getConfiguration;
 
 public class BaseTest {
 
     @BeforeSuite
-    public void configureRestAssured() {
-        RestAssured.baseURI = BASE_URL;
-    }
-
-    @BeforeSuite
-    public void startMock() {
+    public void beforeSuite() {
         MockServer.start();
+        RestAssured.baseURI = getConfiguration().getBaseUrl();
     }
 
     @BeforeMethod
