@@ -1,11 +1,12 @@
-package com.bogdan.test;
+package com.bogdan.test.tests;
 
+import com.bogdan.test.utils.MockServer;
 import com.jayway.restassured.RestAssured;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
-import static com.bogdan.test.Configuration.BASE_URL;
+import static com.bogdan.test.configuration.Configuration.BASE_URL;
 
 public class BaseTest {
 

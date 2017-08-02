@@ -1,10 +1,10 @@
-package com.bogdan.test;
+package com.bogdan.test.utils;
 
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
 
-import static com.bogdan.test.Configuration.PORT;
+import static com.bogdan.test.configuration.Configuration.PORT;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 
 public class MockServer {

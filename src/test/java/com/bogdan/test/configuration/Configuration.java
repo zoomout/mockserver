@@ -1,4 +1,4 @@
-package com.bogdan.test;
+package com.bogdan.test.configuration;
 
 public class Configuration {
 
